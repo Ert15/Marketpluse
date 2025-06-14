@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MarketPulse – Аналитика маркетплейсов в реальном времени</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('../images/ChatGPT\ Image\ 16\ апр.\ 2025\ г.,\ 22_12_12.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    header, section, footer {
+      margin: 40px auto;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .navbar .logo img {
+      height: 60px;
+    }
+    .navbar nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .navbar nav ul li a:hover {
+      color: #ffae5e;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .hero p {
+      font-size: 1.2em;
+      text-align: center;
+    }
+    .features h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .feature-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .feature-item {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      flex: 1 1 280px;
+    }
+    .feature-item img {
+      width: 100%;
+      max-height: 150px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+      margin: 60px auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+    }
+    .close-modal {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close-modal:hover {
+      color: #ffae5e;
+    }
+    .cta-btn {
+      display: inline-block;
+      background-color: #cc5500;
+      color: #fff;
+      padding: 12px 24px;
+      margin-top: 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    header, section, footer {
+      margin: 40px auto;
+    }
+    .navbar nav ul li a:hover {
+      color: #ffae5e;
+    }
+    footer {
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    h2 { margin-top: 30px; color: #ffae5e; }
+    ul { margin: 10px 0 20px 20px; }
+  
+    
+  
+    h1, h2 {
+      color: #ffae5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .team-description {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      font-size: 1.1em;
+    }
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .member {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      width: 260px;
+    }
+    .member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+    .member a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #ffae5e;
+      text-decoration: none;
+    }
+    .member a:hover {
+      text-decoration: underline;
+    }
+    h1 {
+      color: #ffae5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .news-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .news-card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 5px solid #ffae5e;
+    }
+    .news-card h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .news-card p {
+      color: #ddd;
+    }
+  
+    h1 {
+      color: #ffae5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, textarea {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    button {
+      padding: 12px;
+      background-color: #cc5500;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #b34700;
+    }
+    .contact-box {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .contact-details {
+      text-align: center;
+      font-size: 1.05em;
+    }
+    .contact-details p a {
+      color: #ffae5e;
+      text-decoration: none;
+    }
+    .contact-details p a:hover {
+      text-decoration: underline;
+    }
+    .map {
+      margin-top: 30px;
+      text-align: center;
+    }
+    iframe {
+      width: 100%;
+      height: 480px;
+      border-radius: 10px;
+      border: none;
+    }
+    html {
+  scroll-behavior: smooth;
+}
+
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="#"><img src="../images/logo.png" alt="Логотип MarketPulse"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#index">Главная</a></li>
+        <li><a href="#about">О продукте</a></li>
+        <li><a href="#features">Функции</a></li>
+        <li><a href="#team">Команда</a></li>
+        <li><a href="#news">Новости</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+      
+    </nav>
+    <div class="language-switcher">
+      <a href="index.html" id="lang-ru" class="active">RU</a> | 
+      <a href="../en/index.html" id="lang-en">EN</a>
+    </div>
+  </div>
+
+  <header id="index"  class="glass hero fade-in">
+    <div class="container">
+      <h1>MarketPulse – Аналитика маркетплейсов в реальном времени</h1>
+      <p>Получайте инсайты в реальном времени и добивайтесь преимущества с помощью мониторинга цен, анализа истории и визуализации в Power BI.</p>
+    </div>
+  </div>
+  <p style="text-align: center;">
+    <a href="#contact" class="cta-btn">Связаться с нами</a>
+  </p>
+</div>
+  </header>
+  <section  section id="about" class="glass">
+    <div class="container">
+      <h1>О продукте</h1>
+      <p>
+        Наш инструмент аналитики для электронной коммерции построен на парсинге данных и уже успешно работает для потребительской электроники (в основном LG и Samsung) на платформе Kaspi.kz. Он помогает отслеживать рынок, анализировать цены, позиции товаров, рейтинги продавцов и выявлять тренды.
+      </p>
+
+      <h2>Что включено?</h2>
+      <ul>
+        <li><strong>Мониторинг цен:</strong> Анализ цен конкурентов в реальном времени.</li>
+        <li><strong>Рейтинги продавцов:</strong> Обзор отзывов, динамика цен и позиции в поиске.</li>
+        <li><strong>Отслеживание скидок:</strong> Определение, кто и когда снижает цену.</li>
+        <li><strong>Исторические данные:</strong> Анализ цен, рейтингов и отзывов в ретроспективе.</li>
+      </ul>
+
+      <h2>Кому полезно?</h2>
+      <ul>
+        <li><strong>Продавцам:</strong> Прозрачность рынка, мониторинг конкурентов и оптимизация ценовой стратегии.</li>
+        <li><strong>Брендам:</strong> Контроль позиций товаров и оценка эффективности партнёров.</li>
+        <li><strong>Маркетологам:</strong> Данные для планирования акций и прогнозирования спроса.</li>
+      </ul>
+
+      <h2>Будущие улучшения</h2>
+      <p>
+        Мы планируем интеграцию с Halyk Market, Ozon, Wildberries и другими площадками, а также расширение функциональности на всю категорию потребительской электроники. В настоящий момент объем базы данных превышает 20 миллионов строк, что требует дополнительных вычислительных ресурсов
+      </p>
+    </div>
+  </section>
+
+
+
+  <section id="features" class="glass features fade-in">
+    <div class="container">
+      <h2>Ключевые функции</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <img src="../images/monitiryng.jpg" alt="Мониторинг цен">
+          <h3>Мониторинг цен</h3>
+          <p>Отслеживайте изменения цен в реальном времени.</p>
+        </div>
+        <div class="feature-item">
+          <img src="../images/istjrya.jpg" alt="Исторический анализ">
+          <h3>Исторический анализ</h3>
+          <p>Анализируйте прошлые данные и выявляйте тренды.</p>
+        </div>
+        <div class="feature-item">
+          <img src="../images/visualizatsia.jpg" alt="Визуализация данных">
+          <h3>Визуализация данных</h3>
+          <p>Интеграция с Power BI для наглядного представления.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="glass">
+    <div class="container">
+      <p style="text-align: center; max-width: 700px; margin: 0 auto 30px auto;">
+        Ознакомьтесь с функционалом нашего аналитического инструмента через интерактивную презентацию .
+      </p>
+      <div class="demo-embed">
+        <iframe 
+          src="https://docs.google.com/presentation/d/1ziwHUUzQuCPhTPT0c_KqFZ5n5yiMZdvKbTkujlbfmPs/embed?start=false&loop=false&delayms=3000" 
+          allowfullscreen>
+        </iframe>
+  </section>
+  <section id="team" class="glass">
+    <div class="container">
+      <h1>Наша команда</h1>
+      <p class="team-description">
+        Мы — команда единомышленников, увлечённых электронной коммерцией и аналитикой. Каждый участник вносит вклад в то, чтобы MarketPulse был эффективным и удобным инструментом.
+      </p>
+      <div class="team-grid">
+        <div class="member">
+          <img src="../images/ceo.jpg" alt="Дастан">
+          <h3>Дастан Баймагамбетов</h3>
+          <p>Основатель и ведущий разработчик. Эксперт по парсингу данных и рыночной аналитике.</p>
+          <a href="https://www.instagram.com/dastik.b" target="_blank">Instagram</a>
+        </div>
+        <div class="member">
+          <img src="../images/photo_5343999284544138135_x.jpg" alt="Сейтказы">
+          <h3>Сейтказы Ертыс</h3>
+          <p>Сооснователь. Отвечает за стратегическое развитие и внедрение новых инструментов.</p>
+          <a href="https://www.instagram.com/ertis15" target="_blank">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="news" class="glass">
+    <div class="container">
+      <h1>Последние новости</h1>
+      <div class="news-grid">
+        <div class="news-card">
+          <h3>Интеграция с Wildberries и Ozon в процессе</h3>
+          <p>Мы активно работаем над расширением интеграции с маркетплейсами. Скоро вы сможете отслеживать цены с Wildberries и Ozon прямо в панели управления MarketPulse.</p>
+        </div>
+        <div class="news-card">
+          <h3>Объём данных достиг 20 миллионов строк</h3>
+          <p>Мы достигли важной вехи — объём нашей базы данных превысил 20 миллионов строк, что позволяет получать ещё более глубокие инсайты и улучшает работу в Power BI.</p>
+        </div>
+        <div class="news-card">
+          <h3>Скоро: модуль прогнозирования на базе ИИ</h3>
+          <p>Наша команда разрабатывает инструмент прогнозирования спроса на основе искусственного интеллекта. Это поможет продавцам и маркетологам лучше готовиться к рыночным изменениям.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="glass">
+    <div class="container">
+      <h1>Contact Us</h1>
+      <p>Если у вас есть вопросы или нужна дополнительная информация о MarketPulse, заполните форму ниже или свяжитесь с нами удобным способом.</p>
+      <form action="https://formspree.io/f/mnndbvvr" method="POST">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="email" name="email" placeholder="Ваш Email" required>
+        <textarea name="message" placeholder="Сообщение..." required></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+
+      <div class="contact-box">
+        <div class="contact-details">
+          <p>Телефон: <a href="tel:+77001888390">+7 700-188-83-90</a></p>
+          <p>Email: <a href="mailto:marketpulse@gmail.com">marketpulse@gmail.com</a></p>
+          <p>Telegram: <a href="https://t.me/MarketPlus15">t.me/marketpulse</a></p>
+          <p>Instagram: <a href="https://instagram.com/marketpluse15">marketpluse</a></p>
+          <p>Адрес: ул. Толе би 59, Алматы, Казахстан</p>
+        </div>
+        <div class="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2904.1234567890123!2d76.9132456!3d43.2321234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x388362c123456789%3A0xabcdef1234567890!2sTole%20Bi%2059%2C%20Almaty!5e0!3m2!1sen!2skz!4v1610000000000" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="imageModal" class="image-modal">
+    <span class="close-modal">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+
+
+  <footer class="glass fade-in">
+    <div class="container">
+      <p>&copy; 2025 MarketPulse. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.close-modal');
+
+    document.querySelectorAll('.feature-item img').forEach(img => {
+      img.addEventListener('dblclick', () => {
+        modal.style.display = 'block';
+        modalImg.src = img.src;
+      });
+    });
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+    modal.onclick = function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

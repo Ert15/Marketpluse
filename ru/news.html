@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Новости – MarketPulse</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('../images/ChatGPT\ Image\ 16\ апр.\ 2025\ г.\,\ 22_12_12.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+    }
+    header, section, footer {
+      margin: 40px auto;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .navbar .logo img {
+      height: 60px;
+    }
+    .navbar nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .navbar nav ul li a:hover {
+      color: #ffae5e;
+    }
+    footer {
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    h1 {
+      color: #ffae5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .news-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .news-card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 5px solid #ffae5e;
+    }
+    .news-card h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .news-card p {
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="index.html"><img src="../images/logo.png" alt="Логотип MarketPulse"></a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="about.html">О продукте</a></li>
+        <li><a href="team.html">Команда</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+        <li><a href="news.html">Новости</a></li>
+      </ul>
+    </nav>
+    <div class="language-switcher">
+      <a href="index.html" id="lang-ru" class="active">RU</a> | 
+      <a href="../en/index.html" id="lang-en">EN</a>
+    </div>
+  </div>
+
+  <section class="glass">
+    <div class="container">
+      <h1>Последние новости</h1>
+      <div class="news-grid">
+        <div class="news-card">
+          <h3>Интеграция с Wildberries и Ozon в процессе</h3>
+          <p>Мы активно работаем над расширением интеграции с маркетплейсами. Скоро вы сможете отслеживать цены с Wildberries и Ozon прямо в панели управления MarketPulse.</p>
+        </div>
+        <div class="news-card">
+          <h3>Объём данных достиг 20 миллионов строк</h3>
+          <p>Мы достигли важной вехи — объём нашей базы данных превысил 20 миллионов строк, что позволяет получать ещё более глубокие инсайты и улучшает работу в Power BI.</p>
+        </div>
+        <div class="news-card">
+          <h3>Скоро: модуль прогнозирования на базе ИИ</h3>
+          <p>Наша команда разрабатывает инструмент прогнозирования спроса на основе искусственного интеллекта. Это поможет продавцам и маркетологам лучше готовиться к рыночным изменениям.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="glass">
+    <div class="container">
+      <p>&copy; 2025 MarketPulse. Все права защищены.</p>
+    </div>
+  </footer>
+</body>
+</html>
