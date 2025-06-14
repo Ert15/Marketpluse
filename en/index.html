@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MarketPulse – Real-Time Marketplace Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('../images/ChatGPT\ Image\ 16\ апр.\ 2025\ г.,\ 22_12_12.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    header, section, footer {
+      margin: 40px auto;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .navbar .logo img {
+      height: 60px;
+    }
+    .navbar nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .navbar nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .navbar nav ul li a:hover {
+      color: #ffae5e;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .hero p {
+      font-size: 1.2em;
+      text-align: center;
+    }
+    .features h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .feature-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .feature-item {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      flex: 1 1 280px;
+    }
+    .feature-item img {
+      width: 100%;
+      max-height: 150px;
+      object-fit: contain;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+      margin: 60px auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+    }
+    .close-modal {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close-modal:hover {
+      color: #ffae5e;
+    }
+    .cta-btn {
+      display: inline-block;
+      background-color: #cc5500;
+      color: #fff;
+      padding: 12px 24px;
+      margin-top: 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+    header, section, footer {
+      margin: 40px auto;
+    }
+    .navbar nav ul li a:hover {
+      color: #ffae5e;
+    }
+    footer {
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9em;
+    }
+    h2 { margin-top: 30px; color: #ffae5e; }
+    ul { margin: 10px 0 20px 20px; }
+  
+    
+  
+    h1, h2 {
+      color: #ffae5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .team-description {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      font-size: 1.1em;
+    }
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .member {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      width: 260px;
+    }
+    .member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+    }
+    .member a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #ffae5e;
+      text-decoration: none;
+    }
+    .member a:hover {
+      text-decoration: underline;
+    }
+    h1 {
+      color: #ffae5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .news-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .news-card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 5px solid #ffae5e;
+    }
+    .news-card h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .news-card p {
+      color: #ddd;
+    }
+  
+    h1 {
+      color: #ffae5e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    label {
+      font-weight: bold;
+    }
+    input, textarea {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1em;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    button {
+      padding: 12px;
+      background-color: #cc5500;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #b34700;
+    }
+    .contact-box {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .contact-details {
+      text-align: center;
+      font-size: 1.05em;
+    }
+    .contact-details p a {
+      color: #ffae5e;
+      text-decoration: none;
+    }
+    .contact-details p a:hover {
+      text-decoration: underline;
+    }
+    .map {
+      margin-top: 30px;
+      text-align: center;
+    }
+    iframe {
+      width: 100%;
+      height: 480px;
+      border-radius: 10px;
+      border: none;
+    }
+    html {
+  scroll-behavior: smooth;
+}
+
+  </style>
+</head>
+<body>
+<div class="navbar">
+<div class="logo">
+<a href="#"><img alt="Логотип MarketPulse" src="../images/logo.png"/></a>
+</div>
+<nav>
+<ul>
+<li><a href="#index">Home</a></li>
+<li><a href="#about">About the Product</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#team">Team</a></li>
+<li><a href="#news">News</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+<div class="language-switcher">
+<a class="active" href="index.html" id="lang-ru">EN</a> | 
+      <a href="../ru/index.html" id="lang-en">RU</a>
+</div>
+</div>
+<header class="glass hero fade-in" id="index">
+<div class="container">
+<h1>MarketPulse – Real-time Marketplace Analytics</h1>
+<p>Gain real-time insights and outperform with price monitoring, historical analysis, and Power BI visualization.</p>
+</div>
+
+<p style="text-align: center;">
+<a class="cta-btn" href="#contact">Contact Us</a>
+</p>
+
+</header>
+<section class="glass" id="about" section="">
+<div class="container">
+<h1>About the Product</h1>
+<p>Our e-commerce analytics tool is based on data parsing and is already successfully used for consumer electronics (mainly LG and Samsung) on the Kaspi.kz platform. It helps track the market, analyze prices, product positions, seller ratings, and trends.</p>
+<h2>What’s Included?</h2>
+<ul>
+<li><strong>Price Monitoring:</strong>Real-time competitor price analysis.</li>
+<li><strong>Seller Ratings:</strong>Review overview, price dynamics, and search rankings.</li>
+<li><strong>Discount Tracking:</strong>Identify who and when prices are reduced.</li>
+<li><strong>Historical Data:</strong>Historical analysis of prices, ratings, and reviews.</li>
+</ul>
+<h2>Who is it for?</h2>
+<ul>
+<li><strong>For Sellers:</strong>Market transparency, competitor monitoring, and price strategy optimization.</li>
+<li><strong>For Brands:</strong>Control product positions and assess partner performance.</li>
+<li><strong>For Marketers:</strong>Data for campaign planning and demand forecasting.</li>
+</ul>
+<h2>Upcoming Improvements</h2>
+<p>We plan to integrate with Halyk Market, Ozon, Wildberries, and other platforms and expand functionality to all categories of consumer electronics. Currently, the database exceeds 20 million rows, requiring additional computing power.</p>
+</div>
+</section>
+<section class="glass features fade-in" id="features">
+<div class="container">
+<h2>Key Features</h2>
+<div class="feature-list">
+<div class="feature-item">
+<img alt="Мониторинг цен" src="../images/monitiryng.jpg"/>
+<h3>Price Monitoring</h3>
+<p>Track price changes in real time.</p>
+</div>
+<div class="feature-item">
+<img alt="Исторический анализ" src="../images/istjrya.jpg"/>
+<h3>Historical Analysis</h3>
+<p>Analyze past data and detect trends.</p>
+</div>
+<div class="feature-item">
+<img alt="Визуализация данных" src="../images/visualizatsia.jpg"/>
+<h3>Data Visualization</h3>
+<p>Integration with Power BI for clear visualization.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="glass">
+<div class="container">
+<p style="text-align: center; max-width: 700px; margin: 0 auto 30px auto;">
+  Discover the functionality of our analytics tool through an interactive presentation.
+      </p>
+<div class="demo-embed">
+<iframe allowfullscreen="" src="https://docs.google.com/presentation/d/1ziwHUUzQuCPhTPT0c_KqFZ5n5yiMZdvKbTkujlbfmPs/embed?start=false&amp;loop=false&amp;delayms=3000">
+</iframe>
+</div></div></section>
+<section class="glass" id="team">
+<div class="container">
+<h1>Our Team</h1>
+<p class="team-description">We are a team of like-minded individuals passionate about e-commerce and analytics. Every member contributes to making MarketPulse efficient and user-friendly.</p>
+<div class="team-grid">
+<div class="member">
+<img alt="Дастан" src="../images/ceo.jpg"/>
+<h3>Dastan Baymagambetov</h3>
+<p>Founder and lead developer. An expert in data parsing and market analytics.</p>
+<a href="https://www.instagram.com/dastik.b" target="_blank">Instagram</a>
+</div>
+<div class="member">
+<img alt="Сейтказы" src="../images/photo_5343999284544138135_x.jpg"/>
+<h3>Seitkazy Ertys</h3>
+<p>Co-founder. Responsible for strategic development and implementation of new tools.</p>
+<a href="https://www.instagram.com/ertis15" target="_blank">Instagram</a>
+</div>
+</div>
+</div>
+</section>
+<section class="glass" id="news">
+<div class="container">
+<h1>Latest News</h1>
+<div class="news-grid">
+<div class="news-card">
+<h3>Integration with Wildberries and Ozon in Progress</h3>
+<p>We are actively working on expanding integration with marketplaces. Soon you will be able to track prices from Wildberries and Ozon directly in the MarketPulse dashboard.</p>
+</div>
+<div class="news-card">
+<h3>Data Volume Reached 20 Million Rows</h3>
+<p>We’ve reached a major milestone — our database has exceeded 20 million rows, enabling deeper insights and better Power BI performance.</p>
+</div>
+<div class="news-card">
+<h3>Coming Soon: AI-Based Forecast Module</h3>
+<p>Our team is developing an AI-based demand forecasting tool. This will help sellers and marketers better prepare for market changes.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="glass" id="contact">
+<div class="container">
+<h1>Contact Us</h1>
+<p>If you have any questions or need additional information about MarketPulse, fill out the form below or contact us by any convenient means.</p>
+<form action="https://formspree.io/f/mnndbvvr" method="POST">
+<input name="name" placeholder="Ваше имя" required="" type="text"/>
+<input name="email" placeholder="Ваш Email" required="" type="email"/>
+<textarea name="message" placeholder="Сообщение..." required=""></textarea>
+<button type="submit">Send</button>
+</form>
+<div class="contact-box">
+<div class="contact-details">
+<p>Phone:<a href="tel:+77001888390">+7 700-188-83-90</a></p>
+<p>Email: <a href="mailto:marketpulse@gmail.com">marketpulse@gmail.com</a></p>
+<p>Telegram: <a href="https://t.me/MarketPlus15">t.me/marketpulse</a></p>
+<p>Instagram: <a href="https://instagram.com/marketpluse15">marketpluse</a></p>
+<p>Address: Tole Bi Street 59, Almaty, Kazakhstan</p>
+</div>
+<div class="map">
+<iframe allowfullscreen="" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2904.1234567890123!2d76.9132456!3d43.2321234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x388362c123456789%3A0xabcdef1234567890!2sTole%20Bi%2059%2C%20Almaty!5e0!3m2!1sen!2skz!4v1610000000000"></iframe>
+</div>
+</div>
+</div>
+</section>
+<!-- Modal -->
+<div class="image-modal" id="imageModal">
+<span class="close-modal">×</span>
+<img class="modal-content" id="modalImage"/>
+</div>
+<footer class="glass fade-in">
+<div class="container">
+<p>© 2025 MarketPulse. Все права защищены.</p>
+</div>
+</footer>
+<script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.close-modal');
+
+    document.querySelectorAll('.feature-item img').forEach(img => {
+      img.addEventListener('dblclick', () => {
+        modal.style.display = 'block';
+        modalImg.src = img.src;
+      });
+    });
+
+    closeBtn.onclick = function() {
+      modal.style.display = 'none';
+    }
+    modal.onclick = function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
