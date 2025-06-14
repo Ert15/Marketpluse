@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MarketPulse – Redirecting...</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <!-- Если нужен favicon -->
+  <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <!-- Скрипт для автоматического перенаправления по сохранённому языку -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Определяем язык из localStorage или по умолчанию (ru)
+      let lang = localStorage.getItem("language") || "ru";
+      
+      // Перенаправляем на соответствующую страницу
+      if(lang === "ru") {
+        window.location.href = "ru/index.html";
+      } else {
+        window.location.href = "en/index.html";
+      }
+    });
+  </script>
+  
+  <p>Пожалуйста, подождите… идет перенаправление.</p>
+  
+  <!-- Переключатель языков (на случай, если пользователь хочет сменить выбор до редиректа) -->
+  <div class="language-switcher">
+    <a href="ru/index.html" id="lang-ru">RU</a> | 
+    <a href="en/index.html" id="lang-en">EN</a>
+  </div>
+  
+  <!-- Скрипт переключателя языков -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Получаем ссылки переключателя
+      const ruLink = document.getElementById('lang-ru');
+      const enLink = document.getElementById('lang-en');
+    
+      // Определяем текущий язык из localStorage или по умолчанию (ru)
+      let lang = localStorage.getItem('language') || 'ru';
+    
+      // Устанавливаем активный класс на основе сохранённого языка
+      if(lang === 'ru') {
+        ruLink.classList.add('active');
+        enLink.classList.remove('active');
+      } else {
+        enLink.classList.add('active');
+        ruLink.classList.remove('active');
+      }
+    
+      // Обработчик клика для RU
+      ruLink.addEventListener('click', function(e) {
+        e.preventDefault(); // Отменяем стандартный переход
+        localStorage.setItem('language', 'ru');
+        ruLink.classList.add('active');
+        enLink.classList.remove('active');
+        window.location.href = ruLink.getAttribute('href');
+      });
+    
+      // Обработчик клика для EN
+      enLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.setItem('language', 'en');
+        enLink.classList.add('active');
+        ruLink.classList.remove('active');
+        window.location.href = enLink.getAttribute('href');
+      });
+    });
+  </script>
+</body>
+</html>
